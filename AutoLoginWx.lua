@@ -1,24 +1,31 @@
 
 
 --////////////////////////////////////////////////////////////////////
-
+--注意在mi2s要将软件的图形模式设置为兼容
 --定义文件路径
-DEBUG_LOG=false;
+DEBUG_LOG=true;
 LOG_FILE="/mnt/sdcard/glog.txt"
 WX_ACCOUNT_FILE_PATH = "/sdcard/wxacc/wx.txt"
 WX_APP_NAME ="com.tencent.mm"
-VERSION_STRING="AutoLoginWX v0.1a"
+VERSION_STRING="AutoLoginWX v0.2a"
 
 
 function rMain()
 	local accTab=GetAllAccount();
 	local wxUsn;
 	local wxPwd;
+	Log("utype="..tostring(utype));
+	if utype~='type 7' then
+		Log('Type done.');
+		notifyMessage("Done!");
+		return;
+	end
+	Log('Type continue');
 	local id=tonumber(Split(uid,' ')[1]);
 	Log("Do login to id #"..tostring(id));
 	wxUsn=GetUsernameFromTableById(accTab,id);
 	wxPwd=GetPasswordFromTableById(accTab,id);
-	
+	Log("Account ok.");
 	
 	if wxUsn==nil or wxPwd==nil then
 		Log("GetAccount error!");
@@ -278,6 +285,7 @@ UI = {
         {'TextView{                    '..VERSION_STRING..'}'},  
         {'TextView{ }'},
         {'DropList{'..listString..'}',    'uid','Select account to login'},
+        {'DropList{type 1|type 2|type 3|type 4|type 5|type 6|type 7|type 8|type 9|type 0}',    'utype','Select type'},
         {'TextView{ }'},
         {'TextView{\n                                              (c) by coderlin}'},
 };
