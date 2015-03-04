@@ -8,9 +8,27 @@ LOG_FILE="/mnt/sdcard/glog.txt"
 WX_ACCOUNT_FILE_PATH = "/sdcard/wxacc/wx.txt"
 WX_APP_NAME ="com.tencent.mm"
 VERSION_STRING="AutoLoginWX v0.2a"
+DEVICE_TYPE=""
 
 
 function rMain()
+	--判断设备类型
+	screen_width,screen_height=getScreenResolution();
+	Log("screen_width,screen_height="..tostring(screen_width)..","..tostring(screen_height));
+	if screen_width==720 and screen_height==1280 then
+		DEVICE_TYPE="MI";
+	elseif screen_width==480 and screen_height==800 then
+		DEVICE_TYPE="SS";
+	else
+		DEVICE_TYPE="";
+	end
+	if DEVICE_TYPE=="" then
+		Log("DEVICE_TYPE not matched.");
+		notifyMessage("DEVICE_TYPE not matched.");
+		return;
+	end
+	Log("DEVICE_TYPE is "..DEVICE_TYPE);
+	notifyMessage("DEVICE_TYPE is "..DEVICE_TYPE);
 	local accTab=GetAllAccount();
 	local wxUsn;
 	local wxPwd;
@@ -72,20 +90,20 @@ function WXLogin(username,password)
 	end
 	--notifyMessage('在切换页面,正在登陆。。。');
 	--点击切换账号
-	touch(0,634,96   );
+	touchAlies(0,"ALIES_WXLOGIN_TOUCH_QIEHUAN"   );
 	mSleep(500);
 	--选择微信号/邮箱/QQ号
-	touch(0, 273,714   );
+	touchAlies(0, "ALIES_WXLOGIN_TOUCH_MAIL"   );
 	mSleep(1000);
 	--输入账号
 	inputText(username);
 	--换到密码输入
-	touch(0, 254,324 );
+	touchAlies(0, "ALIES_WXLOGIN_TOUCH_PASSWORD" );
 	mSleep(300)
 	--输入密码
 	inputText(password)	
 	--点登陆
-	touch(0,  354,458  );
+	touchAlies(0,  "ALIES_WXLOGIN_TOUCH_LOGIN"  );
 	return true;
 
 end
@@ -107,25 +125,109 @@ function WXLogout()
 	mSleep(1000);
 	--点我
 	Log("touch me...");
-	touch(0,633,1228);
+	touchAlies(0,"ALIES_WXLOGOUT_TOUCH_ME");
 	mSleep(500);
 	--点设置
 	Log("touch setting...");
-	touch(0, 165,805 );
+	touchAlies(0, "ALIES_WXLOGOUT_TOUCH_SETTING" );
 	mSleep(500);
 	--点退出
 	Log("touch exit...");
-	touch(0,   91,947  );
+	touchAlies(0,   "ALIES_WXLOGOUT_TOUCH_EXIT"  );
 	mSleep(500);
 	--点退出当前账号
 	Log("touch quit cur...");
-	touch(0,  304,601  );
+	touchAlies(0,  "ALIES_WXLOGOUT_TOUCH_CUR"  );
 	mSleep(500);
 	--点退出
 	Log("touch quit...");
-	touch( 0, 501,759  );
+	touchAlies( 0,"ALIES_WXLOGOUT_TOUCH_QUIT"  );
 	mSleep(500);
 	return true;
+end
+--别名点击，不同设备不同坐标
+function touchAlies(id,aliesName)
+	local x=0;
+	local y=0;
+
+	if DEVICE_TYPE=="MI" then
+		if aliesName=="ALIES_WXLOGOUT_TOUCH_ME" then
+			x=633;
+			y=1228;
+		elseif aliesName=="ALIES_WXLOGOUT_TOUCH_SETTING" then
+			x=165;
+			y=805;
+		elseif aliesName=="ALIES_WXLOGOUT_TOUCH_EXIT" then
+			x=91;
+			y=947;
+		elseif aliesName=="ALIES_WXLOGOUT_TOUCH_CUR" then
+			x=304;
+			y=601;
+		elseif aliesName=="ALIES_WXLOGOUT_TOUCH_QUIT" then
+			x=501;
+			y=759;
+
+
+		elseif aliesName=="ALIES_WXLOGIN_TOUCH_QIEHUAN" then
+			x=634;
+			y=96;
+		elseif aliesName=="ALIES_WXLOGIN_TOUCH_MAIL" then
+			x=273;
+			y=714;
+		elseif aliesName=="ALIES_WXLOGIN_TOUCH_PASSWORD" then
+			x=254;
+			y=324;
+		elseif aliesName=="ALIES_WXLOGIN_TOUCH_LOGIN" then
+			x=354;
+			y=485;
+		else
+			Log("aliesName don't exists:"..aliesName);
+			x=0;
+			y=0;
+		end
+	elseif DEVICE_TYPE=="SS" then
+		if aliesName=="ALIES_WXLOGOUT_TOUCH_ME" then
+			x=420;
+			y=764;
+		elseif aliesName=="ALIES_WXLOGOUT_TOUCH_SETTING" then
+			x=110;
+			y=603;
+		elseif aliesName=="ALIES_WXLOGOUT_TOUCH_EXIT" then
+			x=63;
+			y=711;
+		elseif aliesName=="ALIES_WXLOGOUT_TOUCH_CUR" then
+			x=225;
+			y=372;
+		elseif aliesName=="ALIES_WXLOGOUT_TOUCH_QUIT" then
+			x=329;
+			y=489;
+
+
+		elseif aliesName=="ALIES_WXLOGIN_TOUCH_QIEHUAN" then
+			x=409;
+			y=75;
+		elseif aliesName=="ALIES_WXLOGIN_TOUCH_MAIL" then
+			x=219;
+			y=456;
+		elseif aliesName=="ALIES_WXLOGIN_TOUCH_PASSWORD" then
+			x=185;
+			y=237;
+		elseif aliesName=="ALIES_WXLOGIN_TOUCH_LOGIN" then
+			x=239;
+			y=347;
+		else
+			Log("aliesName don't exists:"..aliesName);
+			x=0;
+			y=0;
+		end
+	else
+		Log("DEVICE_TYPE don't exists:"..DEVICE_TYPE);
+		x=0;
+		y=0;
+	end
+	
+	touch(id,x,y);
+
 end
 --------------------------------------------------------------------
 function touch(id,x,y)
@@ -136,21 +238,65 @@ function touch(id,x,y)
 end
 
 function IsInQieHuanZhangHao()
-	if getColor( 579,93 )~=0x22292C then return false;end;
-	if getColor( 583,92 )~=0x22292C then return false;end;
-	if getColor( 580,96 )~=0x4C5255 then return false;end;
-	if getColor( 583,96 )~=0x252C2F then return false;end;
-	if getColor( 581,94 )~=0xFFFFFF then return false;end;
-	return true;
+	if DEVICE_TYPE=="MI" then
+		if getColor( 579,93 )~=0x22292C then return false;end;
+		if getColor( 583,92 )~=0x22292C then return false;end;
+		if getColor( 580,96 )~=0x4C5255 then return false;end;
+		if getColor( 583,96 )~=0x252C2F then return false;end;
+		if getColor( 581,94 )~=0xFFFFFF then return false;end;
+		return true;
+	elseif DEVICE_TYPE=="SS" then
+		--[[
+
+		Log("IsInQieHuanZhangHao");
+		Log("getColor()="..tostring(getColor( 373,70 )));
+		Log("getColor()="..tostring(getColor( 378,73 )));
+		Log("getColor()="..tostring(getColor( 374,73 )));
+		Log("getColor()="..tostring(getColor( 377,70 )));
+		Log("getColor()="..tostring(getColor( 376,71 )));
+		--]]
+		if getColor( 373,70 )~=0x22292C then return false;end;
+		if getColor( 378,73 )~=0x22292C then return false;end;
+		if getColor( 374,73 )~=0x242B2E then return false;end;
+		if getColor( 377,70 )~=0x727779 then return false;end;
+		if getColor( 376,71 )~=0xFFFFFF then return false;end;
+		return true;
+	else
+		Log("DEVICE_TYPE don't exists:"..DEVICE_TYPE);
+	end
+	return false;
 end
 function IsInMainPage()
-	if getColor( 550,82  )~= 0xFFFFFF then return false;end;
-	if getColor( 548,91  )~= 0x22292C then return false;end;
-	if getColor( 536,92  )~= 0xFFFFFF then return false;end;
-	if getColor( 560,105 )~= 0xFFFFFF then return false;end;
-	if getColor( 566,111 )~= 0xFFFFFF then return false;end;
-	if getColor( 571,111 )~= 0x22292C then return false;end;
-	return true;
+	if DEVICE_TYPE=="MI" then
+		if getColor( 550,82  )~= 0xFFFFFF then return false;end;
+		if getColor( 548,91  )~= 0x22292C then return false;end;
+		if getColor( 536,92  )~= 0xFFFFFF then return false;end;
+		if getColor( 560,105 )~= 0xFFFFFF then return false;end;
+		if getColor( 566,111 )~= 0xFFFFFF then return false;end;
+		if getColor( 571,111 )~= 0x22292C then return false;end;
+		return true;
+	elseif DEVICE_TYPE=="SS" then
+		--[[
+
+		Log("IsInMainPage");
+		Log("getColor()="..tostring(getColor( 373,70 )));
+		Log("getColor()="..tostring(getColor( 378,73 )));
+		Log("getColor()="..tostring(getColor( 374,73 )));
+		Log("getColor()="..tostring(getColor( 377,70 )));
+		Log("getColor()="..tostring(getColor( 376,71 )));
+		Log("getColor()="..tostring(getColor( 376,71 )));
+		--]]
+		if getColor( 351,61  )~= 0xFDFDFD then return false;end;
+		if getColor( 352,64  )~= 0x252B2E then return false;end;
+		if getColor( 343,72  )~= 0x8E9293 then return false;end;
+		if getColor( 356,77 )~= 0x22292C then return false;end;
+		if getColor( 359,79 )~= 0xFFFFFF then return false;end;
+		if getColor( 367,87 )~= 0x8F9294 then return false;end;
+		return true;
+	else
+		Log("DEVICE_TYPE don't exists:"..DEVICE_TYPE);
+	end
+	return false;
 end
 
 --///////
