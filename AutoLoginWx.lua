@@ -3,11 +3,11 @@
 --////////////////////////////////////////////////////////////////////
 --注意在mi2s要将软件的图形模式设置为兼容
 --定义文件路径
-DEBUG_LOG=true;
+DEBUG_LOG=false;
 LOG_FILE="/mnt/sdcard/glog.txt"
 WX_ACCOUNT_FILE_PATH = "/sdcard/wxacc/wx.txt"
 WX_APP_NAME ="com.tencent.mm"
-VERSION_STRING="AutoLoginWX v0.2a"
+VERSION_STRING="AutoLoginWX v0.3a"
 DEVICE_TYPE=""
 
 
@@ -32,12 +32,7 @@ function rMain()
 	local accTab=GetAllAccount();
 	local wxUsn;
 	local wxPwd;
-	Log("utype="..tostring(utype));
-	if utype~='type 7' then
-		Log('Type done.');
-		notifyMessage("Done!");
-		return;
-	end
+	
 	Log('Type continue');
 	local id=tonumber(Split(uid,' ')[1]);
 	Log("Do login to id #"..tostring(id));
@@ -45,6 +40,15 @@ function rMain()
 	wxPwd=GetPasswordFromTableById(accTab,id);
 	Log("Account ok.");
 	
+	Log("utype="..tostring(utype));
+	if wxUsn~='coder_lin' then
+		if utype~='type 7' then
+			Log('Type done.');
+			notifyMessage("Done!");
+			return;
+		end
+	end
+
 	if wxUsn==nil or wxPwd==nil then
 		Log("GetAccount error!");
 		notifyMessage("Account err!");
