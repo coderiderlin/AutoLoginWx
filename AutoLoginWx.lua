@@ -7,7 +7,7 @@ DEBUG_LOG=false;
 LOG_FILE="/mnt/sdcard/glog.txt"
 WX_ACCOUNT_FILE_PATH = "/sdcard/wxacc/wx.txt"
 WX_APP_NAME ="com.tencent.mm"
-VERSION_STRING="AutoLoginWX v0.3a"
+VERSION_STRING="AutoLoginWX v0.4a"
 DEVICE_TYPE=""
 
 
@@ -243,10 +243,19 @@ end
 
 function IsInQieHuanZhangHao()
 	if DEVICE_TYPE=="MI" then
+		--[[
+
+		Log("IsInQieHuanZhangHao");
+		Log("getColor()="..tostring(getColor( 579,93 )));
+		Log("getColor()="..tostring(getColor( 583,92 )));
+		Log("getColor()="..tostring(getColor( 580,96 )));
+		Log("getColor()="..tostring(getColor( 583,96 )));
+		Log("getColor()="..tostring(getColor( 581,94 )));
+		--]]
 		if getColor( 579,93 )~=0x22292C then return false;end;
 		if getColor( 583,92 )~=0x22292C then return false;end;
-		if getColor( 580,96 )~=0x4C5255 then return false;end;
-		if getColor( 583,96 )~=0x252C2F then return false;end;
+		if getColor( 580,96 )~=0xBBBDBF then return false;end;
+		if getColor( 583,96 )~=0x232A2D then return false;end;
 		if getColor( 581,94 )~=0xFFFFFF then return false;end;
 		return true;
 	elseif DEVICE_TYPE=="SS" then
