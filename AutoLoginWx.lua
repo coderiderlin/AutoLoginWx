@@ -91,7 +91,7 @@ function WXLogin(username,password)
 	end
 	--等待切换用户界面
 	if not IsInQieHuanZhangHao() then
-		notifyMessage('等待切换用户页面');
+		--notifyMessage('等待切换用户页面');
 			repeat 
 				mSleep(100);
 			until IsInQieHuanZhangHao()
@@ -99,15 +99,15 @@ function WXLogin(username,password)
 	--notifyMessage('在切换页面,正在登陆。。。');
 	--点击切换账号
 	touchAlies(0,"ALIES_WXLOGIN_TOUCH_QIEHUAN"   );
-	mSleep(500);
+	mSleep(400);
 	--选择微信号/邮箱/QQ号
 	touchAlies(0, "ALIES_WXLOGIN_TOUCH_MAIL"   );
-	mSleep(1000);
+	mSleep(400);
 	--输入账号
 	inputText(username);
 	--换到密码输入
 	touchAlies(0, "ALIES_WXLOGIN_TOUCH_PASSWORD" );
-	mSleep(300)
+	mSleep(200)
 	--输入密码
 	inputText(password)	
 	--点登陆
@@ -122,7 +122,7 @@ function WXLogout()
 	Log("logout...");
 	if not IsInMainPage() then
 		--等待主界面
-		notifyMessage('等待主页。。');
+		--notifyMessage('等待主页。。');
 		repeat 
 			mSleep(500);
 			Log("waiting main page...");
@@ -130,27 +130,28 @@ function WXLogout()
 		Log("main page...");
 	end
 	--notifyMessage('在主页,正在注销。。');
-	mSleep(1000);
+	mSleep(400);
 	--点我
 	Log("touch me...");
 	touchAlies(0,"ALIES_WXLOGOUT_TOUCH_ME");
-	mSleep(500);
+	mSleep(400);
 	--点设置
 	Log("touch setting...");
 	touchAlies(0, "ALIES_WXLOGOUT_TOUCH_SETTING" );
-	mSleep(500);
+	mSleep(400);
 	--点退出
 	Log("touch exit...");
 	touchAlies(0,   "ALIES_WXLOGOUT_TOUCH_EXIT"  );
-	mSleep(500);
-	--点退出当前账号
+	mSleep(400);
+	--[[点退出当前账号 //安装了twitter后没有这一项了
 	Log("touch quit cur...");
 	touchAlies(0,  "ALIES_WXLOGOUT_TOUCH_CUR"  );
-	mSleep(500);
+	mSleep(400);
+	--]]
 	--点退出
 	Log("touch quit...");
 	touchAlies( 0,"ALIES_WXLOGOUT_TOUCH_QUIT"  );
-	mSleep(500);
+	mSleep(400);
 	return true;
 end
 --别名点击，不同设备不同坐标
