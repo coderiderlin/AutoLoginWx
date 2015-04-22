@@ -60,6 +60,10 @@ function rMain()
 	appRun(WX_APP_NAME);
 	while true
 	do
+		if IsInProtectd() then --保护界面，输入手势密码等一会再continue
+			inputProtectPwd();
+			mSleep(400);
+		end
 		if IsInQieHuanZhangHao() then
 			WXLogin(wxUsn,wxPwd);
 			break;
@@ -163,7 +167,7 @@ function touchAlies(id,aliesName)
 			y=805;
 		elseif aliesName=="ALIES_WXLOGOUT_TOUCH_EXIT" then
 			x=91;
-			y=947;
+			y=1147;
 		elseif aliesName=="ALIES_WXLOGOUT_TOUCH_CUR" then
 			x=304;
 			y=601;
@@ -177,7 +181,7 @@ function touchAlies(id,aliesName)
 			y=96;
 		elseif aliesName=="ALIES_WXLOGIN_TOUCH_MAIL" then
 			x=273;
-			y=714;
+			y=664;
 		elseif aliesName=="ALIES_WXLOGIN_TOUCH_PASSWORD" then
 			x=254;
 			y=324;
@@ -198,7 +202,7 @@ function touchAlies(id,aliesName)
 			y=603;
 		elseif aliesName=="ALIES_WXLOGOUT_TOUCH_EXIT" then
 			x=63;
-			y=711;
+			y=911;
 		elseif aliesName=="ALIES_WXLOGOUT_TOUCH_CUR" then
 			x=225;
 			y=372;
@@ -240,7 +244,235 @@ function touch(id,x,y)
 	touchUp(id);
 	mSleep(200);
 end
+function IsInProtectd()
+	if DEVICE_TYPE=="MI" then
+		--[[
 
+		Log("IsInQieHuanZhangHao");
+		Log("getColor()="..tostring(getColor( 134,417)));
+		Log("getColor()="..tostring(getColor( 137,417)));
+		Log("getColor()="..tostring(getColor( 144,418)));
+		Log("getColor()="..tostring(getColor( 124,480)));
+		Log("getColor()="..tostring(getColor( 125,480)));
+		--]]
+		if getColor( 134,417)~=0xF8F8F8 then return false;end;
+		if getColor( 137,417)~=0xECECEC then return false;end;
+		if getColor( 144,418)~=0xE0E0E0 then return false;end;
+		if getColor( 124,480)~=0xD1D1D1 then return false;end;
+		if getColor( 125,480)~=0xB7B7B7 then return false;end;
+		return true;
+	elseif DEVICE_TYPE=="SS" then
+		
+		return false;
+	else
+		Log("DEVICE_TYPE don't exists:"..DEVICE_TYPE);
+	end
+	return false;
+end
+function inputProtectPwd()
+        mSleep(92);
+        touchDown(0, 592, 739);
+        mSleep(113);
+        touchMove(0, 586, 729);
+        mSleep(9);
+        touchMove(0, 583, 724);
+        mSleep(10);
+        touchMove(0, 581, 719);
+        mSleep(10);
+        touchMove(0, 578, 715);
+        mSleep(9);
+        touchMove(0, 572, 709);
+        mSleep(13);
+        touchMove(0, 568, 704);
+        mSleep(7);
+        touchMove(0, 563, 698);
+        mSleep(9);
+        touchMove(0, 557, 692);
+        mSleep(10);
+        touchMove(0, 551, 685);
+        mSleep(10);
+        touchMove(0, 544, 676);
+        mSleep(9);
+        touchMove(0, 536, 667);
+        mSleep(10);
+        touchMove(0, 531, 660);
+        mSleep(9);
+        touchMove(0, 525, 652);
+        mSleep(10);
+        touchMove(0, 517, 643);
+        mSleep(9);
+        touchMove(0, 510, 634);
+        mSleep(10);
+        touchMove(0, 502, 626);
+        mSleep(9);
+        touchMove(0, 494, 616);
+        mSleep(10);
+        touchMove(0, 485, 607);
+        mSleep(10);
+        touchMove(0, 477, 598);
+        mSleep(10);
+        touchMove(0, 469, 589);
+        mSleep(10);
+        touchMove(0, 462, 580);
+        mSleep(9);
+        touchMove(0, 455, 573);
+        mSleep(8);
+        touchMove(0, 447, 564);
+        mSleep(9);
+        touchMove(0, 440, 556);
+        mSleep(10);
+        touchMove(0, 432, 547);
+        mSleep(8);
+        touchMove(0, 425, 540);
+        mSleep(10);
+        touchMove(0, 416, 531);
+        mSleep(8);
+        touchMove(0, 408, 523);
+        mSleep(10);
+        touchMove(0, 401, 515);
+        mSleep(9);
+        touchMove(0, 395, 508);
+        mSleep(10);
+        touchMove(0, 390, 502);
+        mSleep(10);
+        touchMove(0, 385, 498);
+        mSleep(10);
+        touchMove(0, 381, 494);
+        mSleep(10);
+        touchMove(0, 378, 490);
+        mSleep(9);
+        touchMove(0, 376, 488);
+        mSleep(10);
+        touchMove(0, 373, 485);
+        mSleep(9);
+        touchMove(0, 370, 483);
+        mSleep(10);
+        touchMove(0, 368, 481);
+        mSleep(9);
+        touchMove(0, 366, 480);
+        mSleep(10);
+        touchMove(0, 365, 479);
+        mSleep(9);
+        touchMove(0, 364, 478);
+        mSleep(10);
+        touchMove(0, 363, 478);
+        mSleep(41);
+        touchMove(0, 362, 478);
+        mSleep(10);
+        touchMove(0, 362, 479);
+        mSleep(40);
+        touchMove(0, 362, 490);
+        mSleep(20);
+        touchMove(0, 364, 514);
+        mSleep(10);
+        touchMove(0, 366, 532);
+        mSleep(10);
+        touchMove(0, 370, 548);
+        mSleep(9);
+        touchMove(0, 372, 566);
+        mSleep(10);
+        touchMove(0, 376, 586);
+        mSleep(9);
+        touchMove(0, 379, 608);
+        mSleep(9);
+        touchMove(0, 381, 627);
+        mSleep(10);
+        touchMove(0, 385, 645);
+        mSleep(9);
+        touchMove(0, 389, 667);
+        mSleep(10);
+        touchMove(0, 391, 678);
+        mSleep(9);
+        touchMove(0, 393, 690);
+        mSleep(8);
+        touchMove(0, 394, 700);
+        mSleep(9);
+        touchMove(0, 396, 707);
+        mSleep(10);
+        touchMove(0, 397, 713);
+        mSleep(9);
+        touchMove(0, 398, 718);
+        mSleep(10);
+        touchMove(0, 399, 721);
+        mSleep(10);
+        touchMove(0, 400, 724);
+        mSleep(10);
+        touchMove(0, 400, 726);
+        mSleep(72);
+        touchMove(0, 399, 728);
+        mSleep(9);
+        touchMove(0, 397, 727);
+        mSleep(10);
+        touchMove(0, 393, 723);
+        mSleep(10);
+        touchMove(0, 387, 719);
+        mSleep(10);
+        touchMove(0, 378, 711);
+        mSleep(9);
+        touchMove(0, 368, 702);
+        mSleep(9);
+        touchMove(0, 357, 692);
+        mSleep(10);
+        touchMove(0, 345, 682);
+        mSleep(9);
+        touchMove(0, 334, 669);
+        mSleep(8);
+        touchMove(0, 323, 659);
+        mSleep(9);
+        touchMove(0, 313, 647);
+        mSleep(10);
+        touchMove(0, 296, 633);
+        mSleep(10);
+        touchMove(0, 284, 622);
+        mSleep(10);
+        touchMove(0, 272, 610);
+        mSleep(8);
+        touchMove(0, 258, 598);
+        mSleep(10);
+        touchMove(0, 246, 587);
+        mSleep(9);
+        touchMove(0, 232, 576);
+        mSleep(10);
+        touchMove(0, 219, 566);
+        mSleep(10);
+        touchMove(0, 209, 557);
+        mSleep(9);
+        touchMove(0, 196, 546);
+        mSleep(11);
+        touchMove(0, 188, 536);
+        mSleep(8);
+        touchMove(0, 178, 527);
+        mSleep(10);
+        touchMove(0, 164, 515);
+        mSleep(10);
+        touchMove(0, 153, 505);
+        mSleep(10);
+        touchMove(0, 141, 497);
+        mSleep(10);
+        touchMove(0, 131, 490);
+        mSleep(10);
+        touchMove(0, 124, 484);
+        mSleep(10);
+        touchMove(0, 117, 478);
+        mSleep(11);
+        touchMove(0, 111, 472);
+        mSleep(10);
+        touchMove(0, 106, 468);
+        mSleep(11);
+        touchMove(0, 103, 465);
+        mSleep(10);
+        touchMove(0, 100, 462);
+        mSleep(10);
+        touchMove(0, 98, 460);
+        mSleep(10);
+        touchMove(0, 96, 459);
+        mSleep(10);
+        touchMove(0, 96, 458);
+        mSleep(10);
+        touchMove(0, 95, 457);
+        mSleep(41);
+        touchUp(0);
+end
 function IsInQieHuanZhangHao()
 	if DEVICE_TYPE=="MI" then
 		--[[
