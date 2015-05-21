@@ -143,7 +143,7 @@ function WXLogout()
 	Log("touch exit...");
 	touchAlies(0,   "ALIES_WXLOGOUT_TOUCH_EXIT"  );
 	mSleep(400);
-	--[[点退出当前账号 //安装了twitter后没有这一项了
+	---[[点退出当前账号 //安装了twitter后没有这一项了
 	Log("touch quit cur...");
 	touchAlies(0,  "ALIES_WXLOGOUT_TOUCH_CUR"  );
 	mSleep(400);
@@ -168,7 +168,7 @@ function touchAlies(id,aliesName)
 			y=805;
 		elseif aliesName=="ALIES_WXLOGOUT_TOUCH_EXIT" then
 			x=91;
-			y=1147;
+			y=947;
 		elseif aliesName=="ALIES_WXLOGOUT_TOUCH_CUR" then
 			x=304;
 			y=601;
@@ -182,7 +182,7 @@ function touchAlies(id,aliesName)
 			y=96;
 		elseif aliesName=="ALIES_WXLOGIN_TOUCH_MAIL" then
 			x=273;
-			y=664;
+			y=714;
 		elseif aliesName=="ALIES_WXLOGIN_TOUCH_PASSWORD" then
 			x=254;
 			y=324;
@@ -485,11 +485,11 @@ function IsInQieHuanZhangHao()
 		Log("getColor()="..tostring(getColor( 583,96 )));
 		Log("getColor()="..tostring(getColor( 581,94 )));
 		--]]
-		if getColor( 579,93 )~=0x22292C then return false;end;
-		if getColor( 583,92 )~=0x22292C then return false;end;
-		if getColor( 580,96 )~=0xBBBDBF then return false;end;
-		if getColor( 583,96 )~=0x232A2D then return false;end;
-		if getColor( 581,94 )~=0xFFFFFF then return false;end;
+		if getColor( 579,93 )~=2238764  then return false;end;
+		if getColor( 583,92 )~=2370350  then return false;end;
+		if getColor( 580,96 )~=13422287 then return false;end;
+		if getColor( 583,96 )~=2370350  then return false;end;
+		if getColor( 581,94 )~=16777215 then return false;end;
 		return true;
 	elseif DEVICE_TYPE=="SS" then
 		--[[
